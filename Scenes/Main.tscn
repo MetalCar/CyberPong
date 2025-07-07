@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2aqasaywqe40"]
+[gd_scene load_steps=13 format=3 uid="uid://b2aqasaywqe40"]
 
 [ext_resource type="Script" uid="uid://bfawpe62hbds3" path="res://Scripts/paddle_movement.gd" id="1_idj7w"]
-[ext_resource type="Script" uid="uid://byjfe1mbajr8f" path="res://Scenes/Main.gd" id="1_kln2b"]
+[ext_resource type="Script" uid="uid://byjfe1mbajr8f" path="res://Scripts/Main.gd" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://ts4hkqdp7ovg" path="res://Prefabs/Ball.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://bm03cfos80p8w" path="res://Prefabs/wall.tscn" id="2_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://b527brjhiifok" path="res://Prefabs/hud.tscn" id="5_pbw6q"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0du0"]
 friction = 0.0
@@ -28,7 +29,7 @@ size = Vector2(20, 600)
 
 [node name="GameScene" type="Node2D"]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("hud")]
 editor_description = "Base background in black"
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +42,7 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_kln2b")
 wall_scene = ExtResource("2_rgh2o")
 ball_scene = ExtResource("2_kln2b")
+hud = NodePath("../HUD")
 
 [node name="PaddleLeft" type="StaticBody2D" parent="ColorRect"]
 position = Vector2(23, 284)
@@ -87,4 +89,7 @@ shape = SubResource("RectangleShape2D_idj7w")
 wait_time = 2.0
 one_shot = true
 
+[node name="HUD" parent="." instance=ExtResource("5_pbw6q")]
+
 [connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
+[connection signal="start_new_game" from="HUD" to="ColorRect" method="_on_hud_start_new_game"]
