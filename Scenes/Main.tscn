@@ -84,6 +84,7 @@ position = Vector2(-11, 300)
 shape = SubResource("RectangleShape2D_idj7w")
 
 [node name="BallResetTimer" type="Timer" parent="ColorRect"]
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
