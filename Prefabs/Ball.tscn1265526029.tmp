@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ts4hkqdp7ovg"]
+
+[ext_resource type="Script" uid="uid://vw701gj8ko3s" path="res://Scripts/ball_movement.gd" id="1_f8b65"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_annej"]
+size = Vector2(16, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fnr1w"]
+
+[node name="Ball" type="Node2D"]
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(408, 280)
+script = ExtResource("1_f8b65")
+initialBallVelocity = null
+ballVelocityPerBounce = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_annej")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+position = Vector2(0.999992, -6.67572e-06)
+scale = Vector2(15.75, 15.75)
+texture = SubResource("PlaceholderTexture2D_fnr1w")

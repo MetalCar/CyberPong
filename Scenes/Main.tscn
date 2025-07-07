@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://b2aqasaywqe40"]
+
+[ext_resource type="Script" uid="uid://bfawpe62hbds3" path="res://Scripts/paddle_movement.gd" id="1_idj7w"]
+[ext_resource type="Script" uid="uid://byjfe1mbajr8f" path="res://Scenes/Main.gd" id="1_kln2b"]
+[ext_resource type="PackedScene" uid="uid://ts4hkqdp7ovg" path="res://Prefabs/Ball.tscn" id="2_kln2b"]
+[ext_resource type="PackedScene" uid="uid://bm03cfos80p8w" path="res://Prefabs/wall.tscn" id="2_rgh2o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0du0"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm0pq"]
+size = Vector2(20, 212)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_glv2v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cm0pq"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
+size = Vector2(20, 223)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rxg2q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idj7w"]
+size = Vector2(20, 600)
+
+[node name="GameScene" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+editor_description = "Base background in black"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_kln2b")
+wall_scene = ExtResource("2_rgh2o")
+ball_scene = ExtResource("2_kln2b")
+
+[node name="PaddleLeft" type="StaticBody2D" parent="ColorRect"]
+position = Vector2(23, 284)
+physics_material_override = SubResource("PhysicsMaterial_r0du0")
+script = ExtResource("1_idj7w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PaddleLeft"]
+shape = SubResource("RectangleShape2D_cm0pq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ColorRect/PaddleLeft"]
+rotation = 1.5708
+scale = Vector2(211.972, -20.105)
+texture = SubResource("PlaceholderTexture2D_glv2v")
+
+[node name="PaddleRight" type="StaticBody2D" parent="ColorRect"]
+position = Vector2(777, 284)
+physics_material_override = SubResource("PhysicsMaterial_cm0pq")
+script = ExtResource("1_idj7w")
+player = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PaddleRight"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_r0du0")
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorRect/PaddleRight"]
+rotation = -1.5708
+scale = Vector2(222.842, 20.1052)
+texture = SubResource("PlaceholderTexture2D_rxg2q")
+
+[node name="OutOfBoundLeft" type="Area2D" parent="ColorRect"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/OutOfBoundLeft"]
+position = Vector2(-11, 300)
+shape = SubResource("RectangleShape2D_idj7w")
+
+[node name="OutOfBoundRight" type="Area2D" parent="ColorRect"]
+position = Vector2(822, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/OutOfBoundRight"]
+position = Vector2(-11, 300)
+shape = SubResource("RectangleShape2D_idj7w")
+
+[node name="BallResetTimer" type="Timer" parent="ColorRect"]
+one_shot = true
+
+[connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
