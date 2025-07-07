@@ -10,19 +10,7 @@ func _ready():
 	var screen_height = get_viewport_rect().size.y
 	var screen_width = get_viewport_rect().size.x
 	
-	var top_wall = wall_scene.instantiate()
-	var bottom_wall = wall_scene.instantiate()
-	
-	top_wall.name = "TopWall"
-	bottom_wall.name = "BottomWall"
-	
-	var wall_height = top_wall.get_node("CollisionShape2D").shape.size.y
-	
-	top_wall.position.y = 0 - wall_height / 2
-	bottom_wall.position.y = screen_height
-	
-	add_child(top_wall)
-	add_child(bottom_wall)
+	create_walls(screen_width, screen_height)
 	
 	create_ball(screen_width, screen_height)
 	
@@ -53,6 +41,21 @@ func create_ball(screen_width, screen_height):
 	ball.position.x = screen_width / 2 - ball.get_node("Sprite2D").scale.x
 	ball.position.y = screen_width / 2 - ball.get_node("Sprite2D").scale.y
 	add_child(ball)
+
+func create_walls(screen_width, screen_height):
+	var top_wall = wall_scene.instantiate()
+	var bottom_wall = wall_scene.instantiate()
+	
+	top_wall.name = "TopWall"
+	bottom_wall.name = "BottomWall"
+	
+	var wall_height = top_wall.get_node("CollisionShape2D").shape.size.y
+	
+	top_wall.position.y = 0 - wall_height / 2
+	bottom_wall.position.y = screen_height
+	
+	add_child(top_wall)
+	add_child(bottom_wall)
 
 func _on_ball_reset_timer_timeout() -> void:
 	var screen_height = get_viewport_rect().size.y
