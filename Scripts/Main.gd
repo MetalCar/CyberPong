@@ -13,15 +13,14 @@ func _ready():
 	var screen_width = get_viewport_rect().size.x
 	
 	create_walls(screen_width, screen_height)
-	
-	create_ball(screen_width, screen_height)
-	
+	create_out_of_bounds()
+
+func create_out_of_bounds():
 	var out_left = $OutOfBoundLeft
 	var out_right = $OutOfBoundRight
 
 	out_left.connect("body_entered", Callable(self, "_on_out_of_bounds_body_entered").bind("OutOfBoundLeft"))
 	out_right.connect("body_entered", Callable(self, "_on_out_of_bounds_body_entered").bind("OutOfBoundRight"))
-
 
 func _on_out_of_bounds_body_entered(body: Node, zone_name: String) -> void:
 	if body.name != "Ball":
@@ -36,7 +35,8 @@ func _on_out_of_bounds_body_entered(body: Node, zone_name: String) -> void:
 	
 	if score_p1 >= 5 or score_p2 >= 5:
 		hud.get_child(2).show()
-		hud.get_child(2).get_child(0).get_child(0).text = "Spieler %s hat gewonnen!" % "P1" if score_p1 >= 5 else "P2"
+		var playerName = "P1" if score_p1 >= 5 else "P2"
+		hud.get_child(2).get_child(0).get_child(0).text = "Spieler %s hat gewonnen!" % playerName
 	else:
 		$BallResetTimer.start()
 	
@@ -75,10 +75,17 @@ func _on_ball_reset_timer_timeout() -> void:
 	$BallResetTimer.stop()
 
 func _on_hud_start_new_game() -> void:
+	hud.get_node("TimerScreen").show()
+	for time in [3, 2, 1, 0]:
+		hud.update_timer_label(str(time))
+		await get_tree().create_timer(1).timeout
+	hud.get_node("TimerScreen").hide()
+	start_new_game()
+
+func start_new_game() -> void:
 	var screen_height = get_viewport_rect().size.y
 	var screen_width = get_viewport_rect().size.x
 	score_p1 = 0
 	score_p2 = 0
 	update_score()
-	$BallResetTimer.start()
 	create_ball(screen_width, screen_height)
