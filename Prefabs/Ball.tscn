@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ts4hkqdp7ovg"]
+[gd_scene load_steps=9 format=3 uid="uid://ts4hkqdp7ovg"]
 
 [ext_resource type="Script" uid="uid://vw701gj8ko3s" path="res://Scripts/ball_movement.gd" id="1_f8b65"]
 [ext_resource type="Shader" uid="uid://y04x3esq27bm" path="res://Prefabs/Ball.gdshader" id="2_annej"]
@@ -19,6 +19,13 @@ bounce = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdy6r"]
 size = Vector2(32, 32)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnr1w"]
+shader = ExtResource("2_annej")
+shader_parameter/glow_color = Color(0, 1, 1, 1)
+shader_parameter/glow_strength = 5.0
+shader_parameter/glow_radius = 1.5
+shader_parameter/pulse_speed = 0.5
+
 [node name="Ball" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_annej")
 physics_material_override = SubResource("PhysicsMaterial_f8b65")
@@ -30,5 +37,6 @@ ghost_scene = ExtResource("3_fnr1w")
 shape = SubResource("RectangleShape2D_hdy6r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_fnr1w")
 position = Vector2(4.76837e-07, 4.76837e-07)
 texture = ExtResource("2_hdy6r")
