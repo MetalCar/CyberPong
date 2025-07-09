@@ -43,6 +43,10 @@ func _on_out_of_bounds_body_entered(body: Node, zone_name: String) -> void:
 		hud.get_child(2).show()
 		var playerName = "P1" if score_p1 >= 5 else "P2"
 		hud.get_child(2).get_child(0).get_child(0).text = "Spieler %s hat gewonnen!" % playerName
+		$WinMusic.play()
+		var screen_height = get_viewport_rect().size.y
+		$PaddleLeft.position.y = screen_height / 2
+		$PaddleRight.position.y = screen_height / 2
 	else:
 		$BallResetTimer.start()
 	
