@@ -62,9 +62,12 @@ func apply_dynamic_bounce(paddle: Node):
 
 func _on_body_entered(body):
 	if body.name.begins_with("Paddle"):
+		$HitSound.play()
 		apply_dynamic_bounce(body)
 		ballVelocity += 50
 
 func reset_ball() -> void:
+	$DeathSound.play()
+	await get_tree().create_timer(1).timeout
 	queue_free()
 	reset.emit()

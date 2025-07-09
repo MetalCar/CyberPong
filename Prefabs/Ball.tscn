@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ts4hkqdp7ovg"]
+[gd_scene load_steps=11 format=3 uid="uid://ts4hkqdp7ovg"]
 
 [ext_resource type="Script" uid="uid://vw701gj8ko3s" path="res://Scripts/ball_movement.gd" id="1_f8b65"]
 [ext_resource type="Shader" uid="uid://y04x3esq27bm" path="res://Prefabs/Ball.gdshader" id="2_annej"]
 [ext_resource type="Texture2D" uid="uid://cgwjqr2x0ypr3" path="res://Art/pong-ball.png" id="2_hdy6r"]
 [ext_resource type="PackedScene" uid="uid://ldjsx40esocm" path="res://Prefabs/ghost.tscn" id="3_fnr1w"]
+[ext_resource type="AudioStream" uid="uid://cmh4myh62wv57" path="res://Art/ball_bounce.mp3" id="5_8opgt"]
+[ext_resource type="AudioStream" uid="uid://d21xdg333frw4" path="res://Art/ball_explosion_only.mp3" id="6_p48sr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_annej"]
 shader = ExtResource("2_annej")
@@ -40,3 +42,11 @@ shape = SubResource("RectangleShape2D_hdy6r")
 material = SubResource("ShaderMaterial_fnr1w")
 position = Vector2(4.76837e-07, 4.76837e-07)
 texture = ExtResource("2_hdy6r")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8opgt")
+volume_db = -4.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_p48sr")
+volume_db = -4.0
