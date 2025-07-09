@@ -3,6 +3,10 @@ extends ColorRect
 @export var wall_scene: PackedScene
 @export var ball_scene: PackedScene
 
+@export var audio_player: AudioStreamPlayer2D
+@export var countdownTick: AudioStreamMP3
+@export var countdownTickGo: AudioStreamMP3
+
 @export var hud: Node
 
 var score_p1: int = 0
@@ -11,6 +15,8 @@ var score_p2: int = 0
 func _ready():
 	var screen_height = get_viewport_rect().size.y
 	var screen_width = get_viewport_rect().size.x
+	
+	audio_player.play()
 	
 	create_walls(screen_width, screen_height)
 	create_out_of_bounds()
@@ -78,6 +84,11 @@ func _on_hud_start_new_game() -> void:
 	hud.get_node("TimerScreen").show()
 	for time in [3, 2, 1, 0]:
 		hud.update_timer_label(str(time))
+		if time > 0:
+			$CountdownMusic.stream = countdownTick
+		else:
+			$CountdownMusic.stream = countdownTickGo
+		$CountdownMusic.play()
 		await get_tree().create_timer(1).timeout
 	hud.get_node("TimerScreen").hide()
 	start_new_game()

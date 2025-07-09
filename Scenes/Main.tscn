@@ -1,12 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2aqasaywqe40"]
+[gd_scene load_steps=16 format=3 uid="uid://b2aqasaywqe40"]
 
 [ext_resource type="Script" uid="uid://bfawpe62hbds3" path="res://Scripts/paddle_movement.gd" id="1_idj7w"]
 [ext_resource type="Script" uid="uid://byjfe1mbajr8f" path="res://Scripts/Main.gd" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://ts4hkqdp7ovg" path="res://Prefabs/Ball.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://bm03cfos80p8w" path="res://Prefabs/wall.tscn" id="2_rgh2o"]
 [ext_resource type="Texture2D" uid="uid://bxm8m5muc81ju" path="res://Art/background.png" id="4_v1gob"]
+[ext_resource type="AudioStream" uid="uid://dvwgek5qxybsx" path="res://Art/countdown_go.mp3" id="5_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://b527brjhiifok" path="res://Prefabs/hud.tscn" id="5_pbw6q"]
 [ext_resource type="Texture2D" uid="uid://cjm65dgijga3y" path="res://Art/paddle.png" id="6_jw32o"]
+[ext_resource type="AudioStream" uid="uid://bggd122niq1xj" path="res://Art/countdown_tick.mp3" id="7_vy5pj"]
+[ext_resource type="AudioStream" uid="uid://djufj8fu5jwdu" path="res://Art/teleporting-cyberpunk-music-230628.mp3" id="8_50glp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0du0"]
 friction = 0.0
@@ -27,7 +30,7 @@ size = Vector2(20, 600)
 
 [node name="GameScene" type="Node2D"]
 
-[node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("hud")]
+[node name="ColorRect" type="ColorRect" parent="." node_paths=PackedStringArray("audio_player", "hud")]
 editor_description = "Base background in black"
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +42,9 @@ grow_vertical = 2
 script = ExtResource("1_kln2b")
 wall_scene = ExtResource("2_rgh2o")
 ball_scene = ExtResource("2_kln2b")
+audio_player = NodePath("../BgmMusic")
+countdownTick = ExtResource("7_vy5pj")
+countdownTickGo = ExtResource("5_bmxlf")
 hud = NodePath("../HUD")
 
 [node name="Sprite2D" type="Sprite2D" parent="ColorRect"]
@@ -94,7 +100,15 @@ shape = SubResource("RectangleShape2D_idj7w")
 wait_time = 2.0
 one_shot = true
 
+[node name="CountdownMusic" type="AudioStreamPlayer2D" parent="ColorRect"]
+stream = ExtResource("7_vy5pj")
+volume_db = -4.0
+
 [node name="HUD" parent="." instance=ExtResource("5_pbw6q")]
+
+[node name="BgmMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_50glp")
+volume_db = -6.0
 
 [connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
 [connection signal="start_new_game" from="HUD" to="ColorRect" method="_on_hud_start_new_game"]
