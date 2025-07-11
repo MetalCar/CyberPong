@@ -104,7 +104,7 @@ func start_new_game() -> void:
 	create_ball(screen_width, screen_height)
 
 func _on_hud_decrease_score() -> void:
-	if max_score > 0:
+	if max_score > 1:
 		max_score -= 1;
 	get_parent().get_node("HUD").update_current_goal(max_score)
 	
@@ -112,7 +112,6 @@ func _on_hud_increase_score() -> void:
 	if max_score < 20:
 		max_score += 1;
 	get_parent().get_node("HUD").update_current_goal(max_score)
-
 
 func _on_hud_reset_score() -> void:
 	score_p1 = 0
