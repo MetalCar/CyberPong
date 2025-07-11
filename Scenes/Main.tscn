@@ -116,4 +116,7 @@ stream = ExtResource("8_50glp")
 volume_db = -6.0
 
 [connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
+[connection signal="decrease_score" from="HUD" to="ColorRect" method="_on_hud_decrease_score"]
+[connection signal="increase_score" from="HUD" to="ColorRect" method="_on_hud_increase_score"]
+[connection signal="reset_score" from="HUD" to="ColorRect" method="_on_hud_reset_score"]
 [connection signal="start_new_game" from="HUD" to="ColorRect" method="_on_hud_start_new_game"]

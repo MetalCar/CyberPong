@@ -1,10 +1,16 @@
 extends Node
 
+signal reset_score
 signal start_new_game
+signal decrease_score
+signal increase_score
 
 func _on_game_over_popup_start_new_game() -> void:
 	$GameOverPopup.hide()
-	start_new_game.emit()
+	$ScoreP1.hide()
+	$ScoreP2.hide()
+	$StartScreen.show()
+	reset_score.emit()
 
 func _on_button_pressed() -> void:
 	$StartScreen.hide()
@@ -22,3 +28,12 @@ func update_timer_label(timer):
 			$TimerScreen/ColorRect/Label.text = "1..."
 		"0":
 			$TimerScreen/ColorRect/Label.text = "START"
+
+func update_current_goal(new_score: int) -> void:
+	$StartScreen/GameOptions/CurrentScore.text = str(new_score)
+
+func _on_decrease_button_pressed() -> void:
+	decrease_score.emit()
+
+func _on_increase_button_pressed() -> void:
+	increase_score.emit()

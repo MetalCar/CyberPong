@@ -11,6 +11,7 @@ extends ColorRect
 
 var score_p1: int = 0
 var score_p2: int = 0
+var max_score: int = 5
 
 func _ready():
 	var screen_height = get_viewport_rect().size.y
@@ -39,9 +40,9 @@ func _on_out_of_bounds_body_entered(body: Node, zone_name: String) -> void:
 			score_p1 += 1
 	update_score()
 	
-	if score_p1 >= 5 or score_p2 >= 5:
+	if score_p1 >= max_score or score_p2 >= max_score:
 		hud.get_child(2).show()
-		var playerName = "P1" if score_p1 >= 5 else "P2"
+		var playerName = "P1" if score_p1 >= max_score else "P2"
 		hud.get_child(2).get_child(0).get_child(0).text = "Spieler %s hat gewonnen!" % playerName
 		$WinMusic.play()
 		var screen_height = get_viewport_rect().size.y
@@ -100,7 +101,20 @@ func _on_hud_start_new_game() -> void:
 func start_new_game() -> void:
 	var screen_height = get_viewport_rect().size.y
 	var screen_width = get_viewport_rect().size.x
+	create_ball(screen_width, screen_height)
+
+func _on_hud_decrease_score() -> void:
+	if max_score > 0:
+		max_score -= 1;
+	get_parent().get_node("HUD").update_current_goal(max_score)
+	
+func _on_hud_increase_score() -> void:
+	if max_score < 20:
+		max_score += 1;
+	get_parent().get_node("HUD").update_current_goal(max_score)
+
+
+func _on_hud_reset_score() -> void:
 	score_p1 = 0
 	score_p2 = 0
 	update_score()
-	create_ball(screen_width, screen_height)

@@ -134,6 +134,82 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_6n2uh")
 text = "Spiel starten"
 
+[node name="GameOptions" type="Control" parent="StartScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 200.0
+offset_bottom = -223.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MaximumScore" type="Label" parent="StartScreen/GameOptions"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -53.5
+offset_right = 168.0
+offset_bottom = -5.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Maximale Punktzahl"
+horizontal_alignment = 1
+
+[node name="CurrentScore" type="Label" parent="StartScreen/GameOptions"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = 6.5
+offset_right = 24.0
+offset_bottom = 51.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "5"
+horizontal_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="StartScreen/GameOptions"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 2.5
+offset_right = -38.0
+offset_bottom = 55.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="IncreaseButton" type="Button" parent="StartScreen/GameOptions"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = 2.5
+offset_right = 66.0
+offset_bottom = 55.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = ">"
+
 [node name="TimerScreen" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -171,3 +247,5 @@ text = "3..."
 [connection signal="start_new_game" from="GameOverPopup" to="." method="_on_game_over_popup_start_new_game"]
 [connection signal="pressed" from="GameOverPopup/ColorRect/Button" to="GameOverPopup" method="_on_button_pressed"]
 [connection signal="pressed" from="StartScreen/ColorRect/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StartScreen/GameOptions/DecreaseButton" to="." method="_on_decrease_button_pressed"]
+[connection signal="pressed" from="StartScreen/GameOptions/IncreaseButton" to="." method="_on_increase_button_pressed"]
