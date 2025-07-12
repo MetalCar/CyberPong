@@ -1,14 +1,18 @@
+class_name Ball
 extends RigidBody2D
 
 signal reset
 
+var speed_multiplier: float = 1.0
 @export var initialBallVelocity = 200
 @export var ballVelocityPerBounce = 20
 
 @export var ghost_scene: PackedScene
 @export var ghost_interval: float = 0.05
-
 var _ghost_timer = 0.0
+
+@export var self_destruction_time: float = 0.0 # On 0.0 the ball will never destruct himself
+
 var ballVelocity = initialBallVelocity
 
 func _ready() -> void:
@@ -16,6 +20,17 @@ func _ready() -> void:
 	max_contacts_reported = 5
 	connect("body_entered", Callable(self, "_on_body_entered"))
 	start_ball()
+	
+	if self_destruction_time > 0.0:
+		var timer = Timer.new()
+		timer.wait_time = self_destruction_time
+		timer.one_shot = true
+		timer.connect("timeout", Callable(self, "_on_self_destruct"))
+		add_child(timer)
+		timer.start()
+
+func _on_self_destruct():
+	queue_free()
 
 func _process(delta):
 	_ghost_timer -= delta
@@ -37,7 +52,7 @@ func start_ball():
 	if randi() % 2 == 0:
 		direction.x *= -1
 	
-	linear_velocity = direction.normalized() * ballVelocity
+	linear_velocity = direction.normalized() * ballVelocity * speed_multiplier
 	
 func apply_dynamic_bounce(paddle: Node):
 	# Abstand zwischen Ball und Paddle-Mitte auf der Y-Achse
@@ -58,7 +73,7 @@ func apply_dynamic_bounce(paddle: Node):
 		ballVelocity = min(ballVelocity, 800)
 		
 		# Neue Geschwindigkeit anwenden
-		linear_velocity = new_direction * ballVelocity
+		linear_velocity = new_direction * ballVelocity * speed_multiplier
 
 func _on_body_entered(body):
 	if body.name.begins_with("Paddle"):
@@ -71,3 +86,6 @@ func reset_ball() -> void:
 	await get_tree().create_timer(1).timeout
 	queue_free()
 	reset.emit()
+
+func apply_speed_multiplier(multiplier: float) -> void:
+	speed_multiplier = multiplier

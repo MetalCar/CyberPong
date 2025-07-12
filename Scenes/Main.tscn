@@ -1,30 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2aqasaywqe40"]
+[gd_scene load_steps=12 format=3 uid="uid://b2aqasaywqe40"]
 
-[ext_resource type="Script" uid="uid://bfawpe62hbds3" path="res://Scripts/paddle_movement.gd" id="1_idj7w"]
 [ext_resource type="Script" uid="uid://byjfe1mbajr8f" path="res://Scripts/Main.gd" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://ts4hkqdp7ovg" path="res://Prefabs/Ball.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://bm03cfos80p8w" path="res://Prefabs/wall.tscn" id="2_rgh2o"]
 [ext_resource type="Texture2D" uid="uid://bxm8m5muc81ju" path="res://Art/background.png" id="4_v1gob"]
 [ext_resource type="AudioStream" uid="uid://dvwgek5qxybsx" path="res://Art/countdown_go.mp3" id="5_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://b527brjhiifok" path="res://Prefabs/hud.tscn" id="5_pbw6q"]
-[ext_resource type="Texture2D" uid="uid://cjm65dgijga3y" path="res://Art/paddle.png" id="6_jw32o"]
+[ext_resource type="PackedScene" uid="uid://chx7x0dac0mqe" path="res://Prefabs/paddle.tscn" id="7_grg3l"]
 [ext_resource type="AudioStream" uid="uid://bggd122niq1xj" path="res://Art/countdown_tick.mp3" id="7_vy5pj"]
 [ext_resource type="AudioStream" uid="uid://djufj8fu5jwdu" path="res://Art/teleporting-cyberpunk-music-230628.mp3" id="8_50glp"]
 [ext_resource type="AudioStream" uid="uid://du8hnixpfr62m" path="res://Art/victory_electro.mp3" id="9_4kpch"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0du0"]
-friction = 0.0
-bounce = 1.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm0pq"]
-size = Vector2(48, 200)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cm0pq"]
-friction = 0.0
-bounce = 1.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
-size = Vector2(48, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idj7w"]
 size = Vector2(20, 600)
@@ -53,38 +38,16 @@ position = Vector2(395, 297)
 scale = Vector2(0.86377, 0.657852)
 texture = ExtResource("4_v1gob")
 
-[node name="PaddleLeft" type="StaticBody2D" parent="ColorRect"]
-position = Vector2(23, 284)
-physics_material_override = SubResource("PhysicsMaterial_r0du0")
-script = ExtResource("1_idj7w")
+[node name="PaddleLeft" parent="ColorRect" instance=ExtResource("7_grg3l")]
+position = Vector2(40, 300)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PaddleLeft"]
-position = Vector2(17, 0)
-shape = SubResource("RectangleShape2D_cm0pq")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ColorRect/PaddleLeft"]
-texture_filter = 1
-texture_repeat = 1
-position = Vector2(17, 0)
-scale = Vector2(0.261628, 0.261628)
-texture = ExtResource("6_jw32o")
-
-[node name="PaddleRight" type="StaticBody2D" parent="ColorRect"]
-position = Vector2(777, 284)
-physics_material_override = SubResource("PhysicsMaterial_cm0pq")
-script = ExtResource("1_idj7w")
+[node name="PaddleRight" parent="ColorRect" instance=ExtResource("7_grg3l")]
+position = Vector2(760, 300)
 player = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/PaddleRight"]
-position = Vector2(-17, 0)
-shape = SubResource("RectangleShape2D_r0du0")
-
-[node name="Sprite2D" type="Sprite2D" parent="ColorRect/PaddleRight"]
-position = Vector2(-17, 0)
-scale = Vector2(0.262, 0.262)
-texture = ExtResource("6_jw32o")
+is_cpu = true
 
 [node name="OutOfBoundLeft" type="Area2D" parent="ColorRect"]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/OutOfBoundLeft"]
 position = Vector2(-11, 300)
@@ -92,6 +55,7 @@ shape = SubResource("RectangleShape2D_idj7w")
 
 [node name="OutOfBoundRight" type="Area2D" parent="ColorRect"]
 position = Vector2(822, -1)
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/OutOfBoundRight"]
 position = Vector2(-11, 300)
@@ -109,6 +73,9 @@ volume_db = -4.0
 stream = ExtResource("9_4kpch")
 volume_db = -4.0
 
+[node name="PowerupTimer" type="Timer" parent="ColorRect"]
+wait_time = 10.0
+
 [node name="HUD" parent="." instance=ExtResource("5_pbw6q")]
 
 [node name="BgmMusic" type="AudioStreamPlayer2D" parent="."]
@@ -116,7 +83,10 @@ stream = ExtResource("8_50glp")
 volume_db = -6.0
 
 [connection signal="timeout" from="ColorRect/BallResetTimer" to="ColorRect" method="_on_ball_reset_timer_timeout"]
+[connection signal="timeout" from="ColorRect/PowerupTimer" to="ColorRect" method="_on_powerup_timer_timeout"]
+[connection signal="choose_difficulty" from="HUD" to="ColorRect" method="_on_hud_choose_difficulty"]
 [connection signal="decrease_score" from="HUD" to="ColorRect" method="_on_hud_decrease_score"]
 [connection signal="increase_score" from="HUD" to="ColorRect" method="_on_hud_increase_score"]
 [connection signal="reset_score" from="HUD" to="ColorRect" method="_on_hud_reset_score"]
 [connection signal="start_new_game" from="HUD" to="ColorRect" method="_on_hud_start_new_game"]
+[connection signal="toggle_cpu" from="HUD" to="ColorRect" method="_on_hud_toggle_cpu"]

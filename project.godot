@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="CyberPong"
+config/version="1.0.0"
 run/main_scene="uid://b2aqasaywqe40"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://c3qr5d56s4kg2"
+config/icon="uid://du4f1v65m4mga"
+config/macos_native_icon="res://Art/cyberpong_icon.icns"
+config/windows_native_icon="res://Art/cyberpong_icon.ico"
+boot_splash/minimum_display_time=3000
+
+[autoload]
+
+Enums="*res://Scripts/types/enums.gd"
 
 [display]
 
@@ -35,6 +44,11 @@ folder_colors={
 "res://Scripts/": "green",
 "res://build/": "gray"
 }
+
+[global_group]
+
+paddles=""
+powerups=""
 
 [input]
 

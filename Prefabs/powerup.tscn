@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlxvr2b5wlrwe"]
+
+[ext_resource type="Script" uid="uid://dwwuu4ks8ma3u" path="res://Scripts/player/powerup.gd" id="1_0ks08"]
+[ext_resource type="Texture2D" uid="uid://dxy4d3p612f48" path="res://Art/powerup_speed.png" id="2_hl7yi"]
+[ext_resource type="Texture2D" uid="uid://d4l81v6yt6pno" path="res://Art/powerup_grow.png" id="3_krs5l"]
+[ext_resource type="Texture2D" uid="uid://cbcgciyqwscw2" path="res://Art/powerup_split.png" id="4_tvsdd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nr53q"]
+radius = 16.0
+
+[node name="Powerup" type="Area2D" groups=["powerups"]]
+script = ExtResource("1_0ks08")
+speed_boost_texture = ExtResource("2_hl7yi")
+paddle_grow_texture = ExtResource("3_krs5l")
+ball_split_texture = ExtResource("4_tvsdd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_tvsdd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nr53q")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

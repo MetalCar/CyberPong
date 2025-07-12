@@ -4,6 +4,8 @@ signal reset_score
 signal start_new_game
 signal decrease_score
 signal increase_score
+signal toggle_cpu
+signal choose_difficulty(difficulty_index: int)
 
 func _on_game_over_popup_start_new_game() -> void:
 	$GameOverPopup.hide()
@@ -37,3 +39,9 @@ func _on_decrease_button_pressed() -> void:
 
 func _on_increase_button_pressed() -> void:
 	increase_score.emit()
+
+func _on_cpu_active_pressed() -> void:
+	toggle_cpu.emit()
+
+func _on_difficulty_item_selected(index: int) -> void:
+	choose_difficulty.emit(index)

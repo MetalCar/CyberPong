@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://b73hhm25dwfte"]
+
+[ext_resource type="FontFile" uid="uid://bnkbg26gs8tu6" path="res://Art/Audiowide-Regular.ttf" id="1_712do"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_712do"]
+bg_color = Color(0.577115, 0.143196, 0.577606, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8shgi"]
+bg_color = Color(0.65098, 0.180392, 0.65098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_87chh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kb4nx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgff0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_712do"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8shgi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4vxe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ct06k"]
+
+[resource]
+default_font = ExtResource("1_712do")
+default_font_size = 32
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_712do")
+Button/styles/normal = SubResource("StyleBoxFlat_8shgi")
+Button/styles/pressed = SubResource("StyleBoxFlat_712do")
+CheckButton/styles/focus = SubResource("StyleBoxEmpty_87chh")
+CheckButton/styles/hover = SubResource("StyleBoxEmpty_kb4nx")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_qgff0")
+CheckButton/styles/normal = SubResource("StyleBoxEmpty_712do")
+CheckButton/styles/pressed = SubResource("StyleBoxEmpty_8shgi")
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
+OptionButton/styles/hover = SubResource("StyleBoxEmpty_g4vxe")
+OptionButton/styles/normal = SubResource("StyleBoxEmpty_ct06k")
