@@ -1,0 +1,12 @@
+keys,en,de
+MAXIMUM_SCORE_LABEL,Maximum Score,Maximale Punktzahl
+AGAINST_CPU_LABEL,CPU Player,Computer Spieler
+DIFFICULTY_LABEL,Difficulty:,Schwierigkeitsgrad:
+EASY_OPTION,Easy,Leicht
+MIDDLE_OPTION,Normal,Mittel
+HARD_OPTION,Hard,Schwer
+SCORE_P1,Score: %s,Punkte: %s
+SCORE_P2,Score: %s,Punkte: %s
+WIN_LABEL,Player %i has won!,Spieler %i hat gewonnen!
+RESTART_BUTTON,Restart Game, Spiel neustarten
+START_GAME_BUTTON,Start Game,Spiel starten

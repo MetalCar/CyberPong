@@ -7,6 +7,13 @@ signal increase_score
 signal toggle_cpu
 signal choose_difficulty(difficulty_index: int)
 
+@export var language: String = "de" if OS.get_locale_language() == "de" else "en"
+
+func _ready():
+	TranslationServer.set_locale(language)
+
+
+
 func _on_game_over_popup_start_new_game() -> void:
 	$GameOverPopup.hide()
 	$ScoreP1.hide()
@@ -18,6 +25,8 @@ func _on_button_pressed() -> void:
 	$StartScreen.hide()
 	$ScoreP1.show()
 	$ScoreP2.show()
+	$ScoreP2.text = tr("SCORE_P2") % 0
+	$ScoreP1.text = tr("SCORE_P1") % 0
 	start_new_game.emit()
 
 func update_timer_label(timer):
@@ -45,3 +54,16 @@ func _on_cpu_active_pressed() -> void:
 
 func _on_difficulty_item_selected(index: int) -> void:
 	choose_difficulty.emit(index)
+
+func _on_button_de_pressed() -> void:
+	TranslationServer.set_locale("de")
+	update_ui_texts()
+
+func _on_button_en_pressed() -> void:
+	TranslationServer.set_locale("en")
+	update_ui_texts()
+
+func update_ui_texts():
+	for node in get_tree().get_nodes_in_group("translatables"):
+		if node.has_meta("tr_key"):
+			node.text = tr(node.get_meta("tr_key"))

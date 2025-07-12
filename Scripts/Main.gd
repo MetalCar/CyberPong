@@ -57,8 +57,8 @@ func create_walls(screen_height):
 	add_child(bottom_wall)
 
 func update_score():
-	hud.get_child(1).text = "Score: %s" % score_p2
-	hud.get_child(0).text = "Score: %s" % score_p1
+	hud.get_child(1).text = tr("SCORE_P2") % score_p2
+	hud.get_child(0).text = tr("SCORE_P1") % score_p1
 
 func start_new_game() -> void:
 	var screen_height = get_viewport_rect().size.y
@@ -67,6 +67,8 @@ func start_new_game() -> void:
 	$PaddleRight.is_cpu = use_cpu_player_2
 	$PaddleRight.selected_difficulty = difficulty
 	
+	update_score()
+
 	create_ball(screen_width, screen_height)
 	$PowerupTimer.start()
 
@@ -230,7 +232,7 @@ func _on_out_of_bounds_body_entered(body: Node, zone_name: String) -> void:
 	if score_p1 >= max_score or score_p2 >= max_score:
 		hud.get_child(2).show()
 		var playerName = "P1" if score_p1 >= max_score else "P2"
-		hud.get_child(2).get_child(0).get_child(0).text = "Spieler %s hat gewonnen!" % playerName
+		hud.get_child(2).get_child(0).get_child(0).text = tr("WIN_LABEL") % playerName
 		$WinMusic.play()
 		var screen_height = get_viewport_rect().size.y
 		$PaddleLeft.position.y = screen_height / 2

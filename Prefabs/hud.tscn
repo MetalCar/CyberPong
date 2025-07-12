@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b527brjhiifok"]
+[gd_scene load_steps=14 format=3 uid="uid://b527brjhiifok"]
 
 [ext_resource type="Script" uid="uid://df1gt5gfbkuqu" path="res://Scripts/ui/hud.gd" id="1_g0xie"]
 [ext_resource type="Script" uid="uid://bqdpnbx1m7iqk" path="res://Scripts/ui/game_over_popup.gd" id="1_s3bvw"]
 [ext_resource type="Theme" uid="uid://b73hhm25dwfte" path="res://Themes/SimpleTextTheme.tres" id="3_5kp3n"]
+[ext_resource type="Texture2D" uid="uid://curuxwel31adh" path="res://Art/de.png" id="4_p5qmc"]
+[ext_resource type="Texture2D" uid="uid://bvkf87pgq5a51" path="res://Art/en.png" id="5_un57u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6n2uh"]
 bg_color = Color(0.651809, 0.180164, 0.651392, 1)
@@ -43,9 +45,9 @@ offset_right = 77.0
 offset_bottom = 39.0
 theme = ExtResource("3_5kp3n")
 theme_override_font_sizes/font_size = 32
-text = "Score: 0"
+text = "SCORE_P1"
 
-[node name="ScoreP2" type="Label" parent="."]
+[node name="ScoreP2" type="Label" parent="." groups=["translatables"]]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -57,7 +59,7 @@ offset_bottom = 39.0
 grow_horizontal = 0
 theme = ExtResource("3_5kp3n")
 theme_override_font_sizes/font_size = 32
-text = "Score: 0"
+text = "SCORE_P2"
 
 [node name="GameOverPopup" type="Control" parent="."]
 visible = false
@@ -78,7 +80,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.713726)
 
-[node name="Label" type="Label" parent="GameOverPopup/ColorRect"]
+[node name="Label" type="Label" parent="GameOverPopup/ColorRect" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -93,9 +95,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_5kp3n")
 theme_override_font_sizes/font_size = 32
-text = "Spieler 0 hat gewonnen!"
+text = "WIN_LABEL"
 
-[node name="Button" type="Button" parent="GameOverPopup/ColorRect"]
+[node name="Button" type="Button" parent="GameOverPopup/ColorRect" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,7 +113,7 @@ grow_vertical = 2
 theme = ExtResource("3_5kp3n")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_6n2uh")
-text = "Neu starten"
+text = "RESTART_BUTTON"
 
 [node name="StartScreen" type="Control" parent="."]
 layout_mode = 3
@@ -130,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.713726)
 
-[node name="Label" type="Label" parent="StartScreen/ColorRect"]
+[node name="Label" type="Label" parent="StartScreen/ColorRect" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -144,7 +146,7 @@ theme = ExtResource("3_5kp3n")
 theme_override_font_sizes/font_size = 64
 text = "Pong"
 
-[node name="Button" type="Button" parent="StartScreen/ColorRect"]
+[node name="Button" type="Button" parent="StartScreen/ColorRect" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -159,7 +161,39 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_5kp3n")
 shortcut = SubResource("Shortcut_5kp3n")
-text = "Spiel starten"
+text = "START_GAME_BUTTON"
+
+[node name="ButtonDE" type="Button" parent="StartScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -31.9999
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.025, 0.025)
+icon = ExtResource("4_p5qmc")
+
+[node name="ButtonEN" type="Button" parent="StartScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 968.0
+offset_bottom = 1000.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.025, 0.025)
+icon = ExtResource("5_un57u")
 
 [node name="GameOptions" type="Control" parent="StartScreen"]
 layout_mode = 1
@@ -171,7 +205,7 @@ offset_bottom = -223.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MaximumScore" type="Label" parent="StartScreen/GameOptions"]
+[node name="MaximumScore" type="Label" parent="StartScreen/GameOptions" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -185,10 +219,10 @@ offset_bottom = -40.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_5kp3n")
-text = "Maximale Punktzahl"
+text = "MAXIMUM_SCORE_LABEL"
 horizontal_alignment = 1
 
-[node name="CurrentScore" type="Label" parent="StartScreen/GameOptions"]
+[node name="CurrentScore" type="Label" parent="StartScreen/GameOptions" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -239,7 +273,7 @@ theme = ExtResource("3_5kp3n")
 shortcut = SubResource("Shortcut_p5qmc")
 text = ">"
 
-[node name="CPUActive" type="CheckButton" parent="StartScreen/GameOptions"]
+[node name="CPUActive" type="CheckButton" parent="StartScreen/GameOptions" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -252,9 +286,9 @@ grow_vertical = 2
 theme = ExtResource("3_5kp3n")
 button_pressed = true
 button_group = SubResource("ButtonGroup_g0xie")
-text = "Gegen Computer"
+text = "AGAINST_CPU_LABEL"
 
-[node name="DifficultyLabel" type="Label" parent="StartScreen/GameOptions"]
+[node name="DifficultyLabel" type="Label" parent="StartScreen/GameOptions" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -268,10 +302,10 @@ offset_bottom = 121.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_5kp3n")
-text = "Schwierigkeitsgrad:"
+text = "DIFFICULTY_LABEL"
 horizontal_alignment = 1
 
-[node name="Difficulty" type="OptionButton" parent="StartScreen/GameOptions"]
+[node name="Difficulty" type="OptionButton" parent="StartScreen/GameOptions" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -287,11 +321,11 @@ grow_vertical = 2
 theme = ExtResource("3_5kp3n")
 selected = 1
 item_count = 3
-popup/item_0/text = "Leicht"
+popup/item_0/text = "EASY_OPTION"
 popup/item_0/id = 0
-popup/item_1/text = "Mittel"
+popup/item_1/text = "MIDDLE_OPTION"
 popup/item_1/id = 1
-popup/item_2/text = "Hart"
+popup/item_2/text = "HARD_OPTION"
 popup/item_2/id = 2
 
 [node name="TimerScreen" type="Control" parent="."]
@@ -312,7 +346,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.713726)
 
-[node name="Label" type="Label" parent="TimerScreen/ColorRect"]
+[node name="Label" type="Label" parent="TimerScreen/ColorRect" groups=["translatables"]]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -331,6 +365,8 @@ text = "3..."
 [connection signal="start_new_game" from="GameOverPopup" to="." method="_on_game_over_popup_start_new_game"]
 [connection signal="pressed" from="GameOverPopup/ColorRect/Button" to="GameOverPopup" method="_on_button_pressed"]
 [connection signal="pressed" from="StartScreen/ColorRect/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StartScreen/ColorRect/ButtonDE" to="." method="_on_button_de_pressed"]
+[connection signal="pressed" from="StartScreen/ColorRect/ButtonEN" to="." method="_on_button_en_pressed"]
 [connection signal="pressed" from="StartScreen/GameOptions/DecreaseButton" to="." method="_on_decrease_button_pressed"]
 [connection signal="pressed" from="StartScreen/GameOptions/IncreaseButton" to="." method="_on_increase_button_pressed"]
 [connection signal="pressed" from="StartScreen/GameOptions/CPUActive" to="." method="_on_cpu_active_pressed"]
