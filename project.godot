@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CyberPong"
-config/version="1.0.0"
+config/version="1.1"
 run/main_scene="uid://b2aqasaywqe40"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="uid://c3qr5d56s4kg2"
